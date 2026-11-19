@@ -60,7 +60,7 @@ export interface ChatterPerformance {
   id: string;
   name: string;
   assigned_creators: string[];
-  shift: 'Morning' | 'Afternoon' | 'Night';
+  shift: 'Morning' | 'Afternoon' | 'Evening' | 'Night';
   messages_sent: number;
   sales_generated: number;
   conversion_rate: number;
