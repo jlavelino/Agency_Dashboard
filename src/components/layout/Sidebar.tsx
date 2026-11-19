@@ -31,7 +31,7 @@ export default function Sidebar({ activeTab, setActiveTab, isLive }: SidebarProp
   return (
     <aside className="w-64 bg-zinc-950 text-zinc-200 border-r border-zinc-800/80 flex flex-col shrink-0 min-h-screen">
       {/* Brand Header */}
-      <div className="p-6 border-b border-zinc-800/80 flex items-center justify-between">
+      <div className="h-16 px-6 border-b border-zinc-800/80 flex items-center justify-between shrink-0">
         <div className="flex items-center gap-3">
           <div className="h-9 w-9 rounded-xl bg-gradient-to-tr from-rose-500 via-fuchsia-600 to-indigo-500 flex items-center justify-center shadow-lg shadow-rose-500/20 text-white font-bold text-lg">
             M
