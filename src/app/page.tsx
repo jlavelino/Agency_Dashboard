@@ -9,6 +9,7 @@ import CreatorTable from '@/components/dashboard/CreatorTable';
 import MarketingPanel from '@/components/dashboard/MarketingPanel';
 import ChattersPanel from '@/components/dashboard/ChattersPanel';
 import ChargebackMonitor from '@/components/dashboard/ChargebackMonitor';
+import CreatorDetailDrawer from '@/components/dashboard/CreatorDetailDrawer';
 import { Creator, MarketingAsset, ChargebackRecord, AgencyMetricsSummary } from '@/types/infloww';
 import { mockAgencySummary, mockCreators, mockMarketingAssets, mockChargebacks } from '@/lib/mockData';
 import { Sparkles, ArrowRight, ShieldCheck, Zap } from 'lucide-react';
@@ -19,6 +20,7 @@ export default function Dashboard() {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isLive, setIsLive] = useState<boolean>(false);
+  const [selectedCreator, setSelectedCreator] = useState<Creator | null>(null);
 
   const [summary, setSummary] = useState<AgencyMetricsSummary>(mockAgencySummary);
   const [creators, setCreators] = useState<Creator[]>(mockCreators);
@@ -121,7 +123,11 @@ export default function Dashboard() {
             <div className="space-y-8 animate-fadeIn">
               <KPICards summary={summary} />
               <RevenueChart />
-              <CreatorTable creators={creators} searchFilter={searchQuery} />
+              <CreatorTable
+                creators={creators}
+                searchFilter={searchQuery}
+                onSelectCreator={setSelectedCreator}
+              />
               <MarketingPanel assets={marketingAssets} />
             </div>
           )}
@@ -129,7 +135,11 @@ export default function Dashboard() {
           {/* Tab 2: Creators */}
           {activeTab === 'creators' && (
             <div className="space-y-6 animate-fadeIn">
-              <CreatorTable creators={creators} searchFilter={searchQuery} />
+              <CreatorTable
+                creators={creators}
+                searchFilter={searchQuery}
+                onSelectCreator={setSelectedCreator}
+              />
             </div>
           )}
 
@@ -161,6 +171,14 @@ export default function Dashboard() {
             </div>
           )}
         </main>
+
+        {/* Creator Drilldown Drawer */}
+        <CreatorDetailDrawer
+          creator={selectedCreator}
+          onClose={() => setSelectedCreator(null)}
+          marketingAssets={marketingAssets}
+          chargebacks={chargebacks}
+        />
       </div>
     </div>
   );
