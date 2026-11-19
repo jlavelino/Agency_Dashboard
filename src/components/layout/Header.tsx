@@ -1,12 +1,14 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import {
-  Calendar,
   Search,
   Bell,
   RefreshCw,
   TrendingUp,
+  Download,
+  Check,
+  FileSpreadsheet,
 } from 'lucide-react';
 
 interface HeaderProps {
@@ -16,6 +18,7 @@ interface HeaderProps {
   isLoading: boolean;
   searchQuery: string;
   setSearchQuery: (q: string) => void;
+  onExportCsv?: () => void;
 }
 
 export default function Header({
@@ -25,7 +28,18 @@ export default function Header({
   isLoading,
   searchQuery,
   setSearchQuery,
+  onExportCsv,
 }: HeaderProps) {
+  const [isExported, setIsExported] = useState(false);
+
+  const handleExport = () => {
+    if (onExportCsv) {
+      onExportCsv();
+      setIsExported(true);
+      setTimeout(() => setIsExported(false), 2500);
+    }
+  };
+
   return (
     <header className="h-16 bg-zinc-950/80 backdrop-blur-md border-b border-zinc-800/80 px-6 flex items-center justify-between sticky top-0 z-30">
       {/* Search Bar */}
@@ -67,6 +81,25 @@ export default function Header({
             </button>
           ))}
         </div>
+
+        {/* CSV Export Action Button */}
+        <button
+          onClick={handleExport}
+          title="Export Agency Report to CSV"
+          className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-zinc-300 hover:text-white bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 rounded-lg transition-all"
+        >
+          {isExported ? (
+            <>
+              <Check className="h-3.5 w-3.5 text-emerald-400" />
+              <span className="text-emerald-400">Exported!</span>
+            </>
+          ) : (
+            <>
+              <Download className="h-3.5 w-3.5 text-zinc-400" />
+              <span>Export CSV</span>
+            </>
+          )}
+        </button>
 
         {/* Refresh Action Button */}
         <button

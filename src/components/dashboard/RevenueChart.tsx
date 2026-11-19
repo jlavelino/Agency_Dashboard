@@ -15,10 +15,16 @@ import {
   Legend,
 } from 'recharts';
 import { mockRevenueTrends, mockCreators } from '@/lib/mockData';
+import { getScaledTrends } from '@/lib/timeframeUtils';
 import { TrendingUp, PieChart as PieIcon, Layers } from 'lucide-react';
 
-export default function RevenueChart() {
+interface RevenueChartProps {
+  timeframe?: string;
+}
+
+export default function RevenueChart({ timeframe = '30D' }: RevenueChartProps) {
   const [viewType, setViewType] = useState<'total' | 'breakdown'>('breakdown');
+  const activeTrends = getScaledTrends(mockRevenueTrends, timeframe);
 
   // Colors for Creator Share
   const COLORS = ['#f43f5e', '#a855f7', '#6366f1', '#3b82f6', '#14b8a6', '#f59e0b', '#ec4899', '#64748b'];
@@ -69,7 +75,7 @@ export default function RevenueChart() {
 
         <div className="h-72 w-full">
           <ResponsiveContainer width="100%" height="100%">
-            <AreaChart data={mockRevenueTrends} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+            <AreaChart data={activeTrends} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
               <defs>
                 <linearGradient id="colorTotal" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="5%" stopColor="#f43f5e" stopOpacity={0.3} />

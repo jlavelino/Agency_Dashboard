@@ -12,7 +12,9 @@ import ChargebackMonitor from '@/components/dashboard/ChargebackMonitor';
 import CreatorDetailDrawer from '@/components/dashboard/CreatorDetailDrawer';
 import { Creator, MarketingAsset, ChargebackRecord, AgencyMetricsSummary } from '@/types/infloww';
 import { mockAgencySummary, mockCreators, mockMarketingAssets, mockChargebacks } from '@/lib/mockData';
-import { Sparkles, ArrowRight, ShieldCheck, Zap } from 'lucide-react';
+import { getScaledSummary } from '@/lib/timeframeUtils';
+import { exportAgencyAuditCsv } from '@/lib/exportCsv';
+import { Sparkles, ArrowRight, Zap } from 'lucide-react';
 
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState<string>('overview');
@@ -64,6 +66,8 @@ export default function Dashboard() {
     loadData();
   }, []);
 
+  const activeSummary = getScaledSummary(summary, timeframe);
+
   return (
     <div className="flex h-screen bg-zinc-950 text-zinc-100 overflow-hidden font-sans">
       {/* Sidebar Navigation */}
@@ -78,6 +82,7 @@ export default function Dashboard() {
           isLoading={isLoading}
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
+          onExportCsv={() => exportAgencyAuditCsv(activeSummary, creators, marketingAssets, chargebacks)}
         />
 
         <main className="flex-1 p-6 lg:p-8 space-y-8 max-w-7xl mx-auto w-full">
@@ -121,8 +126,8 @@ export default function Dashboard() {
           {/* Tab 1: Executive Overview */}
           {activeTab === 'overview' && (
             <div className="space-y-8 animate-fadeIn">
-              <KPICards summary={summary} />
-              <RevenueChart />
+              <KPICards summary={activeSummary} />
+              <RevenueChart timeframe={timeframe} />
               <CreatorTable
                 creators={creators}
                 searchFilter={searchQuery}
@@ -146,7 +151,7 @@ export default function Dashboard() {
           {/* Tab 3: Revenue & Trends */}
           {activeTab === 'revenue' && (
             <div className="space-y-6 animate-fadeIn">
-              <RevenueChart />
+              <RevenueChart timeframe={timeframe} />
             </div>
           )}
 
