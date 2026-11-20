@@ -56,7 +56,7 @@ export default function Dashboard() {
         setSummary(summaryRes.value.summary);
       }
     } catch (e) {
-      console.warn('Using client-side dataset:', e);
+      console.warn('API sync warning; rendering cached portfolio dataset.', e);
     } finally {
       setIsLoading(false);
     }
