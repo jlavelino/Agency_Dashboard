@@ -69,7 +69,7 @@ export default function Dashboard() {
   const activeSummary = getScaledSummary(summary, timeframe);
 
   return (
-    <div className="flex h-screen bg-slate-50 text-slate-900 overflow-hidden font-sans">
+    <div className="flex h-screen bg-slate-100 text-slate-900 overflow-hidden font-sans">
       {/* Sidebar Navigation */}
       <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} isLive={isLive} />
 
@@ -87,7 +87,7 @@ export default function Dashboard() {
 
         <main className="flex-1 p-6 lg:p-8 space-y-6 max-w-7xl mx-auto w-full">
           {/* Executive Overview Header Banner */}
-          <div className="relative overflow-hidden bg-white border border-slate-200 rounded-2xl p-6 sm:p-7 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-sm">
+          <div className="relative overflow-hidden bg-white border border-slate-200/90 rounded-2xl p-6 sm:p-7 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-sm ring-1 ring-slate-900/5">
             <div>
               <div className="flex items-center gap-2 mb-2">
                 <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">

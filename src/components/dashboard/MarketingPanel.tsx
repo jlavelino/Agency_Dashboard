@@ -42,7 +42,7 @@ export default function MarketingPanel({ assets }: MarketingPanelProps) {
     <div className="space-y-6">
       {/* Top Marketing KPI Summary */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+        <div className="bg-white border border-slate-200/90 rounded-2xl p-5 shadow-sm ring-1 ring-slate-900/5">
           <div className="flex items-center justify-between text-slate-500 text-xs mb-2">
             <span>Total Link Clicks</span>
             <MousePointerClick className="h-4 w-4 text-blue-600" />
@@ -51,7 +51,7 @@ export default function MarketingPanel({ assets }: MarketingPanelProps) {
           <p className="text-[11px] text-slate-500 mt-1">Across all campaigns</p>
         </div>
 
-        <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+        <div className="bg-white border border-slate-200/90 rounded-2xl p-5 shadow-sm ring-1 ring-slate-900/5">
           <div className="flex items-center justify-between text-slate-500 text-xs mb-2">
             <span>New Subscriber Conversions</span>
             <Users className="h-4 w-4 text-emerald-600" />
@@ -60,7 +60,7 @@ export default function MarketingPanel({ assets }: MarketingPanelProps) {
           <p className="text-[11px] text-slate-500 mt-1">Direct link signups</p>
         </div>
 
-        <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+        <div className="bg-white border border-slate-200/90 rounded-2xl p-5 shadow-sm ring-1 ring-slate-900/5">
           <div className="flex items-center justify-between text-slate-500 text-xs mb-2">
             <span>Average Conversion Rate</span>
             <TrendingUp className="h-4 w-4 text-indigo-600" />
@@ -69,7 +69,7 @@ export default function MarketingPanel({ assets }: MarketingPanelProps) {
           <p className="text-[11px] text-slate-500 mt-1">Benchmark: 4.5% - 6.0%</p>
         </div>
 
-        <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+        <div className="bg-white border border-slate-200/90 rounded-2xl p-5 shadow-sm ring-1 ring-slate-900/5">
           <div className="flex items-center justify-between text-slate-500 text-xs mb-2">
             <span>Attributed Revenue</span>
             <DollarSign className="h-4 w-4 text-indigo-600" />
@@ -80,7 +80,7 @@ export default function MarketingPanel({ assets }: MarketingPanelProps) {
       </div>
 
       {/* Marketing Assets Table */}
-      <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+      <div className="bg-white border border-slate-200/90 rounded-2xl overflow-hidden shadow-sm ring-1 ring-slate-900/5">
         <div className="p-5 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <div className="flex items-center gap-2">
@@ -112,7 +112,7 @@ export default function MarketingPanel({ assets }: MarketingPanelProps) {
 
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-slate-50 text-slate-500 uppercase text-[10px] tracking-wider border-b border-slate-200">
+            <thead className="bg-slate-100/85 text-slate-600 uppercase text-[10px] tracking-wider border-b border-slate-200">
               <tr>
                 <th className="py-3 px-5 font-semibold">Campaign Asset Name</th>
                 <th className="py-3 px-5 font-semibold">Asset Type</th>

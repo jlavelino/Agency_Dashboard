@@ -45,7 +45,7 @@ export default function RevenueChart({ timeframe = '30D' }: RevenueChartProps) {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
       {/* 2 Cols: Revenue Over Time Light Area Chart */}
-      <div className="lg:col-span-2 bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+      <div className="lg:col-span-2 bg-white border border-slate-200/90 rounded-2xl p-6 shadow-sm ring-1 ring-slate-900/5">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
           <div>
             <div className="flex items-center gap-2">
@@ -62,21 +62,19 @@ export default function RevenueChart({ timeframe = '30D' }: RevenueChartProps) {
           <div className="flex items-center bg-slate-100 border border-slate-200 rounded-lg p-1 text-xs">
             <button
               onClick={() => setViewType('breakdown')}
-              className={`flex items-center gap-1.5 px-3 py-1 rounded-md font-semibold transition-all ${
-                viewType === 'breakdown'
-                  ? 'bg-white text-indigo-700 shadow-sm'
-                  : 'text-slate-600 hover:text-slate-900'
-              }`}
+              className={`flex items-center gap-1.5 px-3 py-1 rounded-md font-semibold transition-all ${viewType === 'breakdown'
+                ? 'bg-white text-indigo-700 shadow-sm'
+                : 'text-slate-600 hover:text-slate-900'
+                }`}
             >
               <Layers className="h-3 w-3" /> Breakdown
             </button>
             <button
               onClick={() => setViewType('total')}
-              className={`flex items-center gap-1.5 px-3 py-1 rounded-md font-semibold transition-all ${
-                viewType === 'total'
-                  ? 'bg-white text-indigo-700 shadow-sm'
-                  : 'text-slate-600 hover:text-slate-900'
-              }`}
+              className={`flex items-center gap-1.5 px-3 py-1 rounded-md font-semibold transition-all ${viewType === 'total'
+                ? 'bg-white text-indigo-700 shadow-sm'
+                : 'text-slate-600 hover:text-slate-900'
+                }`}
             >
               Total
             </button>
@@ -185,7 +183,7 @@ export default function RevenueChart({ timeframe = '30D' }: RevenueChartProps) {
       </div>
 
       {/* 1 Col: Creator Revenue Share Donut */}
-      <div className="bg-white border border-slate-200 rounded-2xl p-6 flex flex-col justify-between shadow-sm">
+      <div className="bg-white border border-slate-200/90 rounded-2xl p-6 flex flex-col justify-between shadow-sm ring-1 ring-slate-900/5">
         <div>
           <div className="flex items-center gap-2 mb-1">
             <PieIcon className="h-4 w-4 text-indigo-600" />

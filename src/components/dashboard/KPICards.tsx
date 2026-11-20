@@ -29,7 +29,7 @@ export default function KPICards({ summary }: KPICardsProps) {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
       {/* TIER 1: PRIMARY NORTH-STAR HERO CARD (2 Columns Wide) */}
-      <div className="lg:col-span-2 relative overflow-hidden bg-white border border-slate-200 rounded-2xl p-6 flex flex-col justify-between shadow-sm">
+      <div className="lg:col-span-2 relative overflow-hidden bg-white border border-slate-200/90 rounded-2xl p-6 flex flex-col justify-between shadow-sm ring-1 ring-slate-900/5">
         {/* Subtle accent line on top */}
         <div className="absolute top-0 left-0 right-0 h-1.5 bg-indigo-600" />
 
@@ -60,7 +60,7 @@ export default function KPICards({ summary }: KPICardsProps) {
           </div>
 
           {/* Revenue Breakdown Mini-Tiers */}
-          <div className="grid grid-cols-3 gap-3 py-3.5 px-4 bg-slate-50 rounded-xl border border-slate-200 my-2 text-xs">
+          <div className="grid grid-cols-3 gap-3 py-3.5 px-4 bg-slate-50/90 rounded-xl border border-slate-200 my-2 text-xs">
             <div>
               <span className="text-[11px] text-slate-500 block font-medium">Chatter PPV Sales</span>
               <span className="font-bold text-indigo-700 font-mono text-sm">$68,500</span>
@@ -97,7 +97,7 @@ export default function KPICards({ summary }: KPICardsProps) {
       </div>
 
       {/* TIER 2: SUBSCRIBER GROWTH ENGINE (1 Column) */}
-      <div className="bg-white border border-slate-200 rounded-2xl p-5 flex flex-col justify-between shadow-sm">
+      <div className="bg-white border border-slate-200/90 rounded-2xl p-5 flex flex-col justify-between shadow-sm ring-1 ring-slate-900/5">
         <div>
           <div className="flex items-center justify-between mb-3">
             <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
@@ -136,7 +136,7 @@ export default function KPICards({ summary }: KPICardsProps) {
       {/* TIER 3: CHATTER OPERATIONS & CHARGEBACK GUARDRAIL (1 Column - Stacked) */}
       <div className="flex flex-col gap-3">
         {/* Chatter Sales Card */}
-        <div className="bg-white border border-slate-200 rounded-2xl p-4 flex-1 flex flex-col justify-between shadow-sm">
+        <div className="bg-white border border-slate-200/90 rounded-2xl p-4 flex-1 flex flex-col justify-between shadow-sm ring-1 ring-slate-900/5">
           <div className="flex items-center justify-between mb-1">
             <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
               Chatter Team ROI
@@ -157,7 +157,7 @@ export default function KPICards({ summary }: KPICardsProps) {
         </div>
 
         {/* Chargeback Guardrail Card */}
-        <div className="bg-white border border-slate-200 rounded-2xl p-4 flex-1 flex flex-col justify-between shadow-sm">
+        <div className="bg-white border border-slate-200/90 rounded-2xl p-4 flex-1 flex flex-col justify-between shadow-sm ring-1 ring-slate-900/5">
           <div className="flex items-center justify-between mb-1">
             <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
               Chargeback Risk
@@ -173,11 +173,10 @@ export default function KPICards({ summary }: KPICardsProps) {
               {summary.chargeback_rate_percentage}%
             </div>
             <span
-              className={`text-[11px] font-bold px-2 py-0.5 rounded-full border ${
-                isSafeChargeback
-                  ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
-                  : 'bg-rose-50 text-rose-700 border-rose-200'
-              }`}
+              className={`text-[11px] font-bold px-2 py-0.5 rounded-full border ${isSafeChargeback
+                ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                : 'bg-rose-50 text-rose-700 border-rose-200'
+                }`}
             >
               {isSafeChargeback ? 'Safe (< 1%)' : 'High Risk'}
             </span>

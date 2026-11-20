@@ -25,7 +25,7 @@ export default function ChargebackMonitor({ chargebacks }: ChargebackMonitorProp
     <div className="space-y-6">
       {/* Risk Metrics */}
       <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
-        <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+        <div className="bg-white border border-slate-200/90 rounded-2xl p-5 shadow-sm ring-1 ring-slate-900/5">
           <div className="flex items-center justify-between text-slate-500 text-xs mb-1">
             <span>Total Disputed Volume</span>
             <DollarSign className="h-4 w-4 text-rose-600" />
@@ -34,7 +34,7 @@ export default function ChargebackMonitor({ chargebacks }: ChargebackMonitorProp
           <p className="text-[11px] text-slate-500 mt-1">Total chargebacks logged</p>
         </div>
 
-        <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+        <div className="bg-white border border-slate-200/90 rounded-2xl p-5 shadow-sm ring-1 ring-slate-900/5">
           <div className="flex items-center justify-between text-slate-500 text-xs mb-1">
             <span>Under Dispute</span>
             <AlertTriangle className="h-4 w-4 text-amber-500" />
@@ -43,7 +43,7 @@ export default function ChargebackMonitor({ chargebacks }: ChargebackMonitorProp
           <p className="text-[11px] text-slate-500 mt-1">Pending banking review</p>
         </div>
 
-        <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+        <div className="bg-white border border-slate-200/90 rounded-2xl p-5 shadow-sm ring-1 ring-slate-900/5">
           <div className="flex items-center justify-between text-slate-500 text-xs mb-1">
             <span>Successfully Won</span>
             <CheckCircle2 className="h-4 w-4 text-emerald-600" />
@@ -52,7 +52,7 @@ export default function ChargebackMonitor({ chargebacks }: ChargebackMonitorProp
           <p className="text-[11px] text-slate-500 mt-1">Representment accepted</p>
         </div>
 
-        <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+        <div className="bg-white border border-slate-200/90 rounded-2xl p-5 shadow-sm ring-1 ring-slate-900/5">
           <div className="flex items-center justify-between text-slate-500 text-xs mb-1">
             <span>Lost Disputes</span>
             <XCircle className="h-4 w-4 text-slate-400" />
@@ -63,7 +63,7 @@ export default function ChargebackMonitor({ chargebacks }: ChargebackMonitorProp
       </div>
 
       {/* Chargebacks Log Table */}
-      <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+      <div className="bg-white border border-slate-200/90 rounded-2xl overflow-hidden shadow-sm ring-1 ring-slate-900/5">
         <div className="p-5 border-b border-slate-200 flex items-center justify-between">
           <div>
             <div className="flex items-center gap-2">
@@ -78,7 +78,7 @@ export default function ChargebackMonitor({ chargebacks }: ChargebackMonitorProp
 
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-slate-50 text-slate-500 uppercase text-[10px] tracking-wider border-b border-slate-200">
+            <thead className="bg-slate-100/85 text-slate-600 uppercase text-[10px] tracking-wider border-b border-slate-200">
               <tr>
                 <th className="py-3 px-5 font-semibold">Incident ID</th>
                 <th className="py-3 px-5 font-semibold">Creator</th>
