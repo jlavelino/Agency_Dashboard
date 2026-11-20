@@ -72,18 +72,22 @@ export default function Header({
       <div className="flex items-center gap-2 sm:gap-2.5 shrink-0 flex-nowrap">
         {/* Timeframe Selector */}
         <div className="flex items-center bg-slate-100 border border-slate-200 rounded-xl p-0.5 text-xs shrink-0">
-          {['7D', '30D', 'This Month', 'Q4'].map((tf) => (
-            <button
-              key={tf}
-              onClick={() => setTimeframe(tf)}
-              className={`px-3 py-1 rounded-lg font-semibold text-[11px] transition-all whitespace-nowrap ${timeframe === tf
-                ? 'bg-white text-indigo-700 shadow-sm'
-                : 'text-slate-600 hover:text-slate-900'
+          {['7D', '30D', 'This Month', 'Q4'].map((tf) => {
+            const isSelected = timeframe === tf || (tf === 'This Month' && timeframe === 'Month');
+            return (
+              <button
+                key={tf}
+                onClick={() => setTimeframe(tf)}
+                className={`px-3 py-1 rounded-lg font-semibold text-[11px] transition-all whitespace-nowrap cursor-pointer ${
+                  isSelected
+                    ? 'bg-white text-indigo-700 shadow-sm'
+                    : 'text-slate-600 hover:text-slate-900'
                 }`}
-            >
-              {timeframeLabels[tf] || tf}
-            </button>
-          ))}
+              >
+                {timeframeLabels[tf] || tf}
+              </button>
+            );
+          })}
         </div>
 
         {/* CSV Export Button */}

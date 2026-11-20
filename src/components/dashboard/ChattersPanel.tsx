@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { mockChatters } from '@/lib/mockData';
+import { getScaledChatters } from '@/lib/timeframeUtils';
 import {
   MessageSquare,
   DollarSign,
@@ -11,9 +12,14 @@ import {
   CheckCircle2,
 } from 'lucide-react';
 
-export default function ChattersPanel() {
-  const totalSales = mockChatters.reduce((acc, c) => acc + c.sales_generated, 0);
-  const totalMessages = mockChatters.reduce((acc, c) => acc + c.messages_sent, 0);
+interface ChattersPanelProps {
+  timeframe?: string;
+}
+
+export default function ChattersPanel({ timeframe = '30D' }: ChattersPanelProps) {
+  const chatters = getScaledChatters(mockChatters, timeframe);
+  const totalSales = chatters.reduce((acc, c) => acc + c.sales_generated, 0);
+  const totalMessages = chatters.reduce((acc, c) => acc + c.messages_sent, 0);
 
   return (
     <div className="space-y-6">
@@ -79,14 +85,14 @@ export default function ChattersPanel() {
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100 text-slate-700">
-              {mockChatters.map((chatter, idx) => (
+              {chatters.map((chatter, idx) => (
                 <tr key={chatter.id} className="hover:bg-slate-50 transition-colors">
                   <td className="py-3.5 px-5">
                     <div className="flex items-center gap-3">
                       <div className="h-8 w-8 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center font-bold text-slate-800 text-xs">
                         {chatter.name
                           .split(' ')
-                          .map((n) => n[0])
+                          .map((n: string) => n[0])
                           .join('')}
                       </div>
                       <div>
@@ -101,7 +107,7 @@ export default function ChattersPanel() {
 
                   <td className="py-3.5 px-5">
                     <div className="flex flex-wrap gap-1">
-                      {chatter.assigned_creators.map((c) => (
+                      {chatter.assigned_creators.map((c: string) => (
                         <span
                           key={c}
                           className="bg-slate-100 border border-slate-200 text-slate-700 px-2 py-0.5 rounded text-[10px] font-medium"

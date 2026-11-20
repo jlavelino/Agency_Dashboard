@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { ChargebackRecord } from '@/types/infloww';
+import { getScaledChargebacks } from '@/lib/timeframeUtils';
 import {
   ShieldAlert,
   AlertTriangle,
@@ -13,13 +14,18 @@ import {
 
 interface ChargebackMonitorProps {
   chargebacks: ChargebackRecord[];
+  timeframe?: string;
 }
 
-export default function ChargebackMonitor({ chargebacks }: ChargebackMonitorProps) {
-  const totalAmount = chargebacks.reduce((sum, cb) => sum + cb.amount, 0);
-  const disputedCount = chargebacks.filter((c) => c.status === 'disputed').length;
-  const lostCount = chargebacks.filter((c) => c.status === 'lost').length;
-  const resolvedCount = chargebacks.filter((c) => c.status === 'resolved').length;
+export default function ChargebackMonitor({
+  chargebacks,
+  timeframe = '30D',
+}: ChargebackMonitorProps) {
+  const activeChargebacks = getScaledChargebacks(chargebacks, timeframe);
+  const totalAmount = activeChargebacks.reduce((sum, cb) => sum + cb.amount, 0);
+  const disputedCount = activeChargebacks.filter((c) => c.status === 'disputed').length;
+  const lostCount = activeChargebacks.filter((c) => c.status === 'lost').length;
+  const resolvedCount = activeChargebacks.filter((c) => c.status === 'resolved').length;
 
   return (
     <div className="space-y-6">
@@ -89,7 +95,7 @@ export default function ChargebackMonitor({ chargebacks }: ChargebackMonitorProp
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100 text-slate-700">
-              {chargebacks.map((cb) => {
+              {activeChargebacks.map((cb) => {
                 const statusStyles = {
                   disputed: 'bg-amber-50 text-amber-700 border-amber-200',
                   resolved: 'bg-emerald-50 text-emerald-700 border-emerald-200',

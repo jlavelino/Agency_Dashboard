@@ -12,7 +12,7 @@ import ChargebackMonitor from '@/components/dashboard/ChargebackMonitor';
 import CreatorDetailDrawer from '@/components/dashboard/CreatorDetailDrawer';
 import { Creator, MarketingAsset, ChargebackRecord, AgencyMetricsSummary } from '@/types/infloww';
 import { mockAgencySummary, mockCreators, mockMarketingAssets, mockChargebacks } from '@/lib/mockData';
-import { getScaledSummary } from '@/lib/timeframeUtils';
+import { getScaledSummary, getScaledCreators } from '@/lib/timeframeUtils';
 import { exportAgencyAuditCsv } from '@/lib/exportCsv';
 import { ArrowRight, Zap, CheckCircle2 } from 'lucide-react';
 
@@ -68,6 +68,7 @@ export default function Dashboard() {
   }, []);
 
   const activeSummary = getScaledSummary(summary, timeframe);
+  const activeCreators = getScaledCreators(creators, timeframe);
 
   return (
     <div className="flex h-screen bg-slate-100 text-slate-900 overflow-hidden font-sans">
@@ -89,7 +90,7 @@ export default function Dashboard() {
           isLoading={isLoading}
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
-          onExportCsv={() => exportAgencyAuditCsv(activeSummary, creators, marketingAssets, chargebacks)}
+          onExportCsv={() => exportAgencyAuditCsv(activeSummary, activeCreators, marketingAssets, chargebacks)}
         />
 
         <main className="flex-1 overflow-y-auto p-6 lg:p-8 space-y-6 max-w-7xl mx-auto w-full">
@@ -131,14 +132,15 @@ export default function Dashboard() {
           {/* Tab 1: Executive Overview */}
           {activeTab === 'overview' && (
             <div className="space-y-6 animate-fadeIn">
-              <KPICards summary={activeSummary} />
+              <KPICards summary={activeSummary} timeframe={timeframe} />
               <RevenueChart timeframe={timeframe} />
               <CreatorTable
-                creators={creators}
+                creators={activeCreators}
                 searchFilter={searchQuery}
                 onSelectCreator={setSelectedCreator}
+                timeframe={timeframe}
               />
-              <MarketingPanel assets={marketingAssets} />
+              <MarketingPanel assets={marketingAssets} timeframe={timeframe} />
             </div>
           )}
 
@@ -146,9 +148,10 @@ export default function Dashboard() {
           {activeTab === 'creators' && (
             <div className="space-y-6 animate-fadeIn">
               <CreatorTable
-                creators={creators}
+                creators={activeCreators}
                 searchFilter={searchQuery}
                 onSelectCreator={setSelectedCreator}
+                timeframe={timeframe}
               />
             </div>
           )}
@@ -163,21 +166,21 @@ export default function Dashboard() {
           {/* Tab 4: Marketing & Tracking Links */}
           {activeTab === 'marketing' && (
             <div className="space-y-6 animate-fadeIn">
-              <MarketingPanel assets={marketingAssets} />
+              <MarketingPanel assets={marketingAssets} timeframe={timeframe} />
             </div>
           )}
 
           {/* Tab 5: Chatter Team ROI */}
           {activeTab === 'chatters' && (
             <div className="space-y-6 animate-fadeIn">
-              <ChattersPanel />
+              <ChattersPanel timeframe={timeframe} />
             </div>
           )}
 
           {/* Tab 6: Risk & Chargebacks */}
           {activeTab === 'chargebacks' && (
             <div className="space-y-6 animate-fadeIn">
-              <ChargebackMonitor chargebacks={chargebacks} />
+              <ChargebackMonitor chargebacks={chargebacks} timeframe={timeframe} />
             </div>
           )}
         </main>

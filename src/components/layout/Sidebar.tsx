@@ -39,9 +39,8 @@ export default function Sidebar({
 
   return (
     <aside
-      className={`bg-white text-slate-700 border-r border-slate-200/90 flex flex-col shrink-0 min-h-screen transition-all duration-300 ease-in-out z-20 ${
-        isCollapsed ? 'w-[72px]' : 'w-64'
-      }`}
+      className={`bg-white text-slate-700 border-r border-slate-200/90 flex flex-col shrink-0 min-h-screen transition-all duration-300 ease-in-out z-20 ${isCollapsed ? 'w-[72px]' : 'w-64'
+        }`}
     >
       {/* Brand Header & Single Collapse Toggle */}
       <div
@@ -91,18 +90,16 @@ export default function Sidebar({
             className="flex items-center justify-center p-2 rounded-xl bg-slate-50 border border-slate-200 cursor-default"
           >
             <span
-              className={`h-2.5 w-2.5 rounded-full ${
-                isLive ? 'bg-emerald-500 shadow-sm animate-pulse' : 'bg-indigo-600'
-              }`}
+              className={`h-2.5 w-2.5 rounded-full ${isLive ? 'bg-emerald-500 shadow-sm animate-pulse' : 'bg-indigo-600'
+                }`}
             />
           </div>
         ) : (
           <div className="flex items-center justify-between bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs">
             <div className="flex items-center gap-2 min-w-0">
               <span
-                className={`h-2.5 w-2.5 rounded-full shrink-0 ${
-                  isLive ? 'bg-emerald-500 shadow-sm' : 'bg-indigo-600'
-                }`}
+                className={`h-2.5 w-2.5 rounded-full shrink-0 ${isLive ? 'bg-emerald-500 shadow-sm' : 'bg-indigo-600'
+                  }`}
               />
               <span className="text-slate-800 font-semibold truncate">
                 {isLive ? 'Infloww Live' : 'Infloww Connected'}
@@ -125,20 +122,17 @@ export default function Sidebar({
               key={item.id}
               onClick={() => setActiveTab(item.id)}
               title={isCollapsed ? item.label : undefined}
-              className={`w-full flex items-center rounded-xl text-xs font-semibold transition-all ${
-                isCollapsed
-                  ? 'justify-center p-2.5'
-                  : 'gap-3 px-3 py-2.5'
-              } ${
-                isActive
+              className={`w-full flex items-center rounded-xl text-xs font-semibold transition-all ${isCollapsed
+                ? 'justify-center p-2.5'
+                : 'gap-3 px-3 py-2.5'
+                } ${isActive
                   ? 'bg-indigo-50 text-indigo-700 border border-indigo-200 shadow-xs'
                   : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/70'
-              }`}
+                }`}
             >
               <Icon
-                className={`h-4 w-4 shrink-0 ${
-                  isActive ? 'text-indigo-600' : 'text-slate-400'
-                }`}
+                className={`h-4 w-4 shrink-0 ${isActive ? 'text-indigo-600' : 'text-slate-400'
+                  }`}
               />
               {!isCollapsed && <span className="truncate">{item.label}</span>}
             </button>

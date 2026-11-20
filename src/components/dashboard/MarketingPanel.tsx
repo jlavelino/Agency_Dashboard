@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { MarketingAsset } from '@/types/infloww';
+import { getScaledMarketing } from '@/lib/timeframeUtils';
 import {
   Link2,
   MousePointerClick,
@@ -15,9 +16,10 @@ import {
 
 interface MarketingPanelProps {
   assets: MarketingAsset[];
+  timeframe?: string;
 }
 
-export default function MarketingPanel({ assets }: MarketingPanelProps) {
+export default function MarketingPanel({ assets, timeframe = '30D' }: MarketingPanelProps) {
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [assetTypeFilter, setAssetTypeFilter] = useState<string>('all');
 
@@ -28,14 +30,16 @@ export default function MarketingPanel({ assets }: MarketingPanelProps) {
     setTimeout(() => setCopiedId(null), 2000);
   };
 
-  const filteredAssets = assets.filter((a) => {
+  const activeAssets = getScaledMarketing(assets, timeframe);
+
+  const filteredAssets = activeAssets.filter((a) => {
     if (assetTypeFilter === 'all') return true;
     return a.asset_type === assetTypeFilter;
   });
 
-  const totalClicks = assets.reduce((sum, a) => sum + a.clicks, 0);
-  const totalConversions = assets.reduce((sum, a) => sum + a.conversions, 0);
-  const totalAttributed = assets.reduce((sum, a) => sum + a.attributed_revenue, 0);
+  const totalClicks = activeAssets.reduce((sum, a) => sum + a.clicks, 0);
+  const totalConversions = activeAssets.reduce((sum, a) => sum + a.conversions, 0);
+  const totalAttributed = activeAssets.reduce((sum, a) => sum + a.attributed_revenue, 0);
   const avgConversionRate = (totalConversions / (totalClicks || 1)) * 100;
 
   return (

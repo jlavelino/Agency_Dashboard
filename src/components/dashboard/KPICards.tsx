@@ -12,17 +12,24 @@ import {
   Target,
 } from 'lucide-react';
 import { AgencyMetricsSummary } from '@/types/infloww';
+import { getTimeframeTitle, getTimeframeGoal } from '@/lib/timeframeUtils';
 
 interface KPICardsProps {
   summary: AgencyMetricsSummary;
+  timeframe?: string;
 }
 
-export default function KPICards({ summary }: KPICardsProps) {
-  const targetMonthlyGoal = 160000;
+export default function KPICards({ summary, timeframe = '30D' }: KPICardsProps) {
+  const goalConfig = getTimeframeGoal(timeframe);
+  const title = getTimeframeTitle(timeframe);
   const progressPercent = Math.min(
     100,
-    Math.round((summary.total_revenue_month / targetMonthlyGoal) * 100)
+    Math.round((summary.total_revenue_month / goalConfig.goal) * 100)
   );
+
+  const chatterPPV = Math.round(summary.total_revenue_month * 0.461);
+  const subscriptions = Math.round(summary.total_revenue_month * 0.351);
+  const directTips = Math.round(summary.total_revenue_month * 0.188);
 
   const isSafeChargeback = summary.chargeback_rate_percentage < 1.0;
 
@@ -50,7 +57,7 @@ export default function KPICards({ summary }: KPICardsProps) {
           </div>
 
           <div className="mb-3">
-            <span className="text-[11px] text-slate-500 block mb-0.5 font-medium">Monthly Agency Gross</span>
+            <span className="text-[11px] text-slate-500 block mb-0.5 font-medium">{title}</span>
             <div className="flex items-baseline gap-1.5">
               <span className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 font-mono">
                 ${summary.total_revenue_month.toLocaleString()}
@@ -63,17 +70,23 @@ export default function KPICards({ summary }: KPICardsProps) {
           <div className="grid grid-cols-3 gap-2.5 py-2.5 px-3.5 bg-slate-50/90 rounded-xl border border-slate-200 my-2 text-xs">
             <div>
               <span className="text-[10px] text-slate-500 block font-medium">Chatter PPV Sales</span>
-              <span className="font-bold text-indigo-700 font-mono text-xs sm:text-sm">$68,500</span>
+              <span className="font-bold text-indigo-700 font-mono text-xs sm:text-sm">
+                ${chatterPPV.toLocaleString()}
+              </span>
               <span className="text-[10px] text-slate-400 block mt-0.5">46.1% share</span>
             </div>
             <div>
               <span className="text-[10px] text-slate-500 block font-medium">Subscriptions</span>
-              <span className="font-bold text-blue-700 font-mono text-xs sm:text-sm">$52,200</span>
+              <span className="font-bold text-blue-700 font-mono text-xs sm:text-sm">
+                ${subscriptions.toLocaleString()}
+              </span>
               <span className="text-[10px] text-slate-400 block mt-0.5">35.1% share</span>
             </div>
             <div>
               <span className="text-[10px] text-slate-500 block font-medium">Fan Direct Tips</span>
-              <span className="font-bold text-emerald-700 font-mono text-xs sm:text-sm">$27,820</span>
+              <span className="font-bold text-emerald-700 font-mono text-xs sm:text-sm">
+                ${directTips.toLocaleString()}
+              </span>
               <span className="text-[10px] text-slate-400 block mt-0.5">18.8% share</span>
             </div>
           </div>
@@ -83,7 +96,7 @@ export default function KPICards({ summary }: KPICardsProps) {
         <div className="pt-2">
           <div className="flex items-center justify-between text-xs mb-1">
             <span className="text-slate-600 flex items-center gap-1.5 text-[11px] font-medium">
-              <Target className="h-3.5 w-3.5 text-indigo-600" /> Target Pace ($160k Goal)
+              <Target className="h-3.5 w-3.5 text-indigo-600" /> {goalConfig.label}
             </span>
             <span className="font-bold text-indigo-700 font-mono text-xs">{progressPercent}%</span>
           </div>

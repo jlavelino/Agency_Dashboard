@@ -16,16 +16,27 @@ interface CreatorTableProps {
   creators: Creator[];
   onSelectCreator?: (creator: Creator) => void;
   searchFilter?: string;
+  timeframe?: string;
 }
 
 export default function CreatorTable({
   creators,
   onSelectCreator,
   searchFilter = '',
+  timeframe = '30D',
 }: CreatorTableProps) {
   const [sortField, setSortField] = useState<keyof Creator>('monthly_revenue');
   const [sortAsc, setSortAsc] = useState(false);
   const [statusFilter, setStatusFilter] = useState<'all' | 'active' | 'inactive'>('all');
+
+  const revenueColLabel =
+    timeframe === '7D'
+      ? '7D Gross'
+      : timeframe === 'Month' || timeframe === 'This Month'
+      ? 'MTD Gross'
+      : timeframe === 'Q4'
+      ? 'Q4 Gross'
+      : 'Monthly Gross';
 
   const handleSort = (field: keyof Creator) => {
     if (sortField === field) {
@@ -112,7 +123,7 @@ export default function CreatorTable({
                 className="py-3 px-5 font-semibold cursor-pointer hover:text-slate-900 transition-colors"
               >
                 <div className="flex items-center gap-1.5">
-                  <span>Monthly Gross</span>
+                  <span>{revenueColLabel}</span>
                   <ArrowUpDown className="h-3 w-3" />
                 </div>
               </th>

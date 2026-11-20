@@ -14,7 +14,7 @@ import {
   Cell,
 } from 'recharts';
 import { mockRevenueTrends, mockCreators } from '@/lib/mockData';
-import { getScaledTrends } from '@/lib/timeframeUtils';
+import { getScaledTrends, getTimeframeMultiplier } from '@/lib/timeframeUtils';
 import { TrendingUp, PieChart as PieIcon, Layers } from 'lucide-react';
 
 interface RevenueChartProps {
@@ -24,6 +24,7 @@ interface RevenueChartProps {
 export default function RevenueChart({ timeframe = '30D' }: RevenueChartProps) {
   const [viewType, setViewType] = useState<'total' | 'breakdown'>('breakdown');
   const activeTrends = getScaledTrends(mockRevenueTrends, timeframe);
+  const mult = getTimeframeMultiplier(timeframe);
 
   // Clean, professional light theme categorical colors
   const PIE_COLORS = [
@@ -39,8 +40,12 @@ export default function RevenueChart({ timeframe = '30D' }: RevenueChartProps) {
 
   const creatorShareData = mockCreators.map((c) => ({
     name: c.name,
-    value: c.monthly_revenue,
+    value: Math.round(c.monthly_revenue * mult),
   }));
+
+  const topEarner = creatorShareData[0] || { name: 'Aria Steele', value: Math.round(52400 * mult) };
+  const totalShareRev = creatorShareData.reduce((acc, c) => acc + c.value, 0);
+  const topEarnerPercent = totalShareRev > 0 ? Math.round((topEarner.value / totalShareRev) * 100) : 35;
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -222,27 +227,31 @@ export default function RevenueChart({ timeframe = '30D' }: RevenueChartProps) {
           </ResponsiveContainer>
           <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
             <span className="text-[11px] text-slate-500 font-medium">Top Earner</span>
-            <span className="text-sm font-bold text-slate-900">Aria Steele</span>
-            <span className="text-[10px] text-indigo-600 font-mono font-semibold">35.3% share</span>
+            <span className="text-sm font-bold text-slate-900">{topEarner.name}</span>
+            <span className="text-[10px] text-indigo-600 font-mono font-semibold">
+              ${(topEarner.value / 1000).toFixed(1)}k ({topEarnerPercent}%)
+            </span>
           </div>
         </div>
 
         <div className="grid grid-cols-2 gap-2 text-[11px] text-slate-600 border-t border-slate-100 pt-3">
           <div className="flex items-center gap-2">
             <span className="h-2 w-2 rounded-full bg-indigo-600" />
-            <span className="truncate">Aria: $52.4k</span>
+            <span className="truncate">Aria: ${(creatorShareData[0]?.value / 1000).toFixed(1)}k</span>
           </div>
           <div className="flex items-center gap-2">
             <span className="h-2 w-2 rounded-full bg-sky-600" />
-            <span className="truncate">Elena: $34.8k</span>
+            <span className="truncate">Elena: ${(creatorShareData[1]?.value / 1000).toFixed(1)}k</span>
           </div>
           <div className="flex items-center gap-2">
             <span className="h-2 w-2 rounded-full bg-violet-600" />
-            <span className="truncate">Chloe: $26.9k</span>
+            <span className="truncate">Chloe: ${(creatorShareData[2]?.value / 1000).toFixed(1)}k</span>
           </div>
           <div className="flex items-center gap-2">
             <span className="h-2 w-2 rounded-full bg-slate-500" />
-            <span className="truncate">Others: $34.4k</span>
+            <span className="truncate">
+              Others: ${(Math.max(0, totalShareRev - (creatorShareData[0]?.value || 0) - (creatorShareData[1]?.value || 0) - (creatorShareData[2]?.value || 0)) / 1000).toFixed(1)}k
+            </span>
           </div>
         </div>
       </div>

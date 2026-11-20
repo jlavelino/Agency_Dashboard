@@ -1,4 +1,56 @@
-import { AgencyMetricsSummary, RevenueDataPoint } from '@/types/infloww';
+import {
+  AgencyMetricsSummary,
+  RevenueDataPoint,
+  Creator,
+  MarketingAsset,
+  ChargebackRecord,
+  ChatterPerformance,
+} from '@/types/infloww';
+
+export function getTimeframeMultiplier(timeframe: string): number {
+  switch (timeframe) {
+    case '7D':
+      return 0.2333;
+    case 'Month':
+    case 'This Month':
+      return 0.6333;
+    case 'Q4':
+      return 2.85;
+    case '30D':
+    default:
+      return 1.0;
+  }
+}
+
+export function getTimeframeTitle(timeframe: string): string {
+  switch (timeframe) {
+    case '7D':
+      return '7-Day Trailing Gross';
+    case 'Month':
+    case 'This Month':
+      return 'Month-to-Date Gross';
+    case 'Q4':
+      return 'Q4 Quarterly Gross';
+    case '30D':
+    default:
+      return 'Monthly Agency Gross';
+  }
+}
+
+export function getTimeframeGoal(timeframe: string): { goal: number; label: string } {
+  switch (timeframe) {
+    case '7D':
+      return { goal: 37500, label: '7-Day Pace ($37.5k Goal)' };
+    case 'Month':
+    case 'This Month':
+      return { goal: 100000, label: 'MTD Pace ($100k Goal)' };
+    case 'Q4':
+      return { goal: 480000, label: 'Q4 Pace ($480k Goal)' };
+    case '30D':
+    default:
+      return { goal: 160000, label: 'Target Pace ($160k Goal)' };
+  }
+}
 
 export function getScaledSummary(base: AgencyMetricsSummary, timeframe: string): AgencyMetricsSummary {
   switch (timeframe) {
@@ -12,6 +64,7 @@ export function getScaledSummary(base: AgencyMetricsSummary, timeframe: string):
         chargeback_rate_percentage: 0.72,
         marketing_roi_percentage: 365,
       };
+    case 'Month':
     case 'This Month':
       return {
         ...base,
@@ -38,15 +91,55 @@ export function getScaledSummary(base: AgencyMetricsSummary, timeframe: string):
   }
 }
 
+export function getScaledCreators(creators: Creator[], timeframe: string): Creator[] {
+  const mult = getTimeframeMultiplier(timeframe);
+  return creators.map((c) => ({
+    ...c,
+    monthly_revenue: Math.round(c.monthly_revenue * mult),
+  }));
+}
+
+export function getScaledMarketing(assets: MarketingAsset[], timeframe: string): MarketingAsset[] {
+  const mult = getTimeframeMultiplier(timeframe);
+  return assets.map((a) => ({
+    ...a,
+    clicks: Math.round(a.clicks * mult),
+    conversions: Math.round(a.conversions * mult),
+    attributed_revenue: Math.round(a.attributed_revenue * mult),
+  }));
+}
+
+export function getScaledChargebacks(chargebacks: ChargebackRecord[], timeframe: string): ChargebackRecord[] {
+  switch (timeframe) {
+    case '7D':
+      return chargebacks.slice(0, 3);
+    case 'Month':
+    case 'This Month':
+      return chargebacks.slice(0, 5);
+    case 'Q4':
+    case '30D':
+    default:
+      return chargebacks;
+  }
+}
+
+export function getScaledChatters(chatters: ChatterPerformance[], timeframe: string): ChatterPerformance[] {
+  const mult = getTimeframeMultiplier(timeframe);
+  return chatters.map((c) => ({
+    ...c,
+    sales_generated: Math.round(c.sales_generated * mult),
+    messages_sent: Math.round(c.messages_sent * mult),
+  }));
+}
+
 export function getScaledTrends(trends: RevenueDataPoint[], timeframe: string): RevenueDataPoint[] {
   switch (timeframe) {
     case '7D':
-      // Return the most recent 4 data points (e.g. 7-day span)
       return trends.slice(-4);
+    case 'Month':
     case 'This Month':
-      return trends;
+      return trends.slice(0, 8);
     case 'Q4':
-      // Projected extended trend points
       return [
         { date: 'Oct 01', revenue: 3800, subscriptions: 1600, tips: 1000, messages: 1200 },
         { date: 'Oct 15', revenue: 4100, subscriptions: 1750, tips: 1100, messages: 1250 },
