@@ -14,7 +14,7 @@ import { Creator, MarketingAsset, ChargebackRecord, AgencyMetricsSummary } from 
 import { mockAgencySummary, mockCreators, mockMarketingAssets, mockChargebacks } from '@/lib/mockData';
 import { getScaledSummary } from '@/lib/timeframeUtils';
 import { exportAgencyAuditCsv } from '@/lib/exportCsv';
-import { Sparkles, ArrowRight, Zap } from 'lucide-react';
+import { ArrowRight, Zap, CheckCircle2 } from 'lucide-react';
 
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState<string>('overview');
@@ -69,7 +69,7 @@ export default function Dashboard() {
   const activeSummary = getScaledSummary(summary, timeframe);
 
   return (
-    <div className="flex h-screen bg-zinc-950 text-zinc-100 overflow-hidden font-sans">
+    <div className="flex h-screen bg-slate-50 text-slate-900 overflow-hidden font-sans">
       {/* Sidebar Navigation */}
       <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} isLive={isLive} />
 
@@ -85,47 +85,45 @@ export default function Dashboard() {
           onExportCsv={() => exportAgencyAuditCsv(activeSummary, creators, marketingAssets, chargebacks)}
         />
 
-        <main className="flex-1 p-6 lg:p-8 space-y-8 max-w-7xl mx-auto w-full">
-          {/* Executive Overview Banner */}
-          <div className="relative overflow-hidden bg-gradient-to-r from-rose-950/40 via-zinc-900 to-indigo-950/40 border border-zinc-800/80 rounded-3xl p-6 sm:p-8">
-            <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
-              <div>
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-rose-500/10 text-rose-400 border border-rose-500/20">
-                    <Sparkles className="h-3.5 w-3.5" /> Infloww API Connected
-                  </span>
-                  <span className="text-xs text-zinc-400 font-mono">Agency OID: 1223928978604066</span>
-                </div>
-                <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white">
-                  Agency Command Center
-                </h2>
-                <p className="text-zinc-400 text-xs sm:text-sm mt-1 max-w-xl">
-                  Monitoring revenue velocity, chatter shift efficiency, subscriber acquisition, and chargeback risk across 8 managed creators.
-                </p>
+        <main className="flex-1 p-6 lg:p-8 space-y-6 max-w-7xl mx-auto w-full">
+          {/* Executive Overview Header Banner */}
+          <div className="relative overflow-hidden bg-white border border-slate-200 rounded-2xl p-6 sm:p-7 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-sm">
+            <div>
+              <div className="flex items-center gap-2 mb-2">
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                  <CheckCircle2 className="h-3.5 w-3.5" /> Infloww API Active
+                </span>
+                <span className="text-xs text-indigo-700 font-mono font-medium">Agency OID: 1223928978604066</span>
               </div>
+              <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">
+                Agency Operations Command
+              </h1>
+              <p className="text-slate-600 text-xs sm:text-sm mt-1 max-w-xl">
+                Managing revenue velocity, chatter shift efficiency, subscriber acquisition, and risk across 8 managed creators.
+              </p>
+            </div>
 
-              <div className="flex flex-wrap items-center gap-3">
-                <button
-                  onClick={() => setActiveTab('creators')}
-                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-rose-500 hover:bg-rose-600 text-white text-xs font-semibold shadow-lg shadow-rose-500/20 transition-all hover:scale-[1.02]"
-                >
-                  <span>Explore Creator Roster</span>
-                  <ArrowRight className="h-4 w-4" />
-                </button>
-                <button
-                  onClick={() => setActiveTab('chatters')}
-                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-xs font-semibold border border-zinc-700 transition-all"
-                >
-                  <Zap className="h-4 w-4 text-amber-400" />
-                  <span>Chatter ROI</span>
-                </button>
-              </div>
+            <div className="flex flex-wrap items-center gap-3">
+              <button
+                onClick={() => setActiveTab('creators')}
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shadow-sm transition-all"
+              >
+                <span>Creator Roster</span>
+                <ArrowRight className="h-3.5 w-3.5" />
+              </button>
+              <button
+                onClick={() => setActiveTab('chatters')}
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold border border-slate-200 transition-all"
+              >
+                <Zap className="h-3.5 w-3.5 text-indigo-600" />
+                <span>Chatter Sales</span>
+              </button>
             </div>
           </div>
 
           {/* Tab 1: Executive Overview */}
           {activeTab === 'overview' && (
-            <div className="space-y-8 animate-fadeIn">
+            <div className="space-y-6 animate-fadeIn">
               <KPICards summary={activeSummary} />
               <RevenueChart timeframe={timeframe} />
               <CreatorTable

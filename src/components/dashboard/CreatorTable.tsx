@@ -8,7 +8,6 @@ import {
   TrendingDown,
   ShieldCheck,
   ShieldAlert,
-  Search,
   ExternalLink,
   UserCheck,
 } from 'lucide-react';
@@ -58,42 +57,42 @@ export default function CreatorTable({
     });
 
   return (
-    <div className="bg-zinc-900/90 border border-zinc-800/90 rounded-2xl overflow-hidden">
+    <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
       {/* Table Header Controls */}
-      <div className="p-5 border-b border-zinc-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="p-5 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <UserCheck className="h-4 w-4 text-rose-400" />
-            <h3 className="text-sm font-semibold text-white">Managed Creators Performance</h3>
+            <UserCheck className="h-4 w-4 text-indigo-600" />
+            <h3 className="text-sm font-bold text-slate-900">Managed Creators Performance</h3>
           </div>
-          <p className="text-xs text-zinc-400 mt-0.5">
+          <p className="text-xs text-slate-500 mt-0.5">
             Real-time revenue, active subscriber volume, and risk per model
           </p>
         </div>
 
         {/* Filter Pills */}
         <div className="flex items-center gap-2">
-          <div className="flex items-center bg-zinc-950 border border-zinc-800 rounded-lg p-1 text-xs">
+          <div className="flex items-center bg-slate-100 border border-slate-200 rounded-xl p-1 text-xs">
             <button
               onClick={() => setStatusFilter('all')}
-              className={`px-3 py-1 rounded-md font-medium transition-all ${
-                statusFilter === 'all' ? 'bg-zinc-800 text-white' : 'text-zinc-400 hover:text-zinc-200'
+              className={`px-3 py-1 rounded-lg font-semibold transition-all ${
+                statusFilter === 'all' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-600 hover:text-slate-900'
               }`}
             >
               All ({creators.length})
             </button>
             <button
               onClick={() => setStatusFilter('active')}
-              className={`px-3 py-1 rounded-md font-medium transition-all ${
-                statusFilter === 'active' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'text-zinc-400 hover:text-zinc-200'
+              className={`px-3 py-1 rounded-lg font-semibold transition-all ${
+                statusFilter === 'active' ? 'bg-white text-emerald-700 shadow-sm' : 'text-slate-600 hover:text-slate-900'
               }`}
             >
               Active ({creators.filter((c) => c.status === 'active').length})
             </button>
             <button
               onClick={() => setStatusFilter('inactive')}
-              className={`px-3 py-1 rounded-md font-medium transition-all ${
-                statusFilter === 'inactive' ? 'bg-zinc-800 text-zinc-300' : 'text-zinc-400 hover:text-zinc-200'
+              className={`px-3 py-1 rounded-lg font-semibold transition-all ${
+                statusFilter === 'inactive' ? 'bg-white text-slate-700 shadow-sm' : 'text-slate-600 hover:text-slate-900'
               }`}
             >
               Inactive
@@ -105,12 +104,12 @@ export default function CreatorTable({
       {/* Table Component */}
       <div className="overflow-x-auto">
         <table className="w-full text-left text-xs">
-          <thead className="bg-zinc-950/60 text-zinc-400 uppercase text-[10px] tracking-wider border-b border-zinc-800">
+          <thead className="bg-slate-50 text-slate-500 uppercase text-[10px] tracking-wider border-b border-slate-200">
             <tr>
               <th className="py-3 px-5 font-semibold">Creator</th>
               <th
                 onClick={() => handleSort('monthly_revenue')}
-                className="py-3 px-5 font-semibold cursor-pointer hover:text-white transition-colors"
+                className="py-3 px-5 font-semibold cursor-pointer hover:text-slate-900 transition-colors"
               >
                 <div className="flex items-center gap-1.5">
                   <span>Monthly Gross</span>
@@ -119,7 +118,7 @@ export default function CreatorTable({
               </th>
               <th
                 onClick={() => handleSort('growth_rate')}
-                className="py-3 px-5 font-semibold cursor-pointer hover:text-white transition-colors"
+                className="py-3 px-5 font-semibold cursor-pointer hover:text-slate-900 transition-colors"
               >
                 <div className="flex items-center gap-1.5">
                   <span>Growth</span>
@@ -128,7 +127,7 @@ export default function CreatorTable({
               </th>
               <th
                 onClick={() => handleSort('fans_count')}
-                className="py-3 px-5 font-semibold cursor-pointer hover:text-white transition-colors"
+                className="py-3 px-5 font-semibold cursor-pointer hover:text-slate-900 transition-colors"
               >
                 <div className="flex items-center gap-1.5">
                   <span>Active Fans</span>
@@ -138,7 +137,7 @@ export default function CreatorTable({
               <th className="py-3 px-5 font-semibold">Primary Chatter</th>
               <th
                 onClick={() => handleSort('chargeback_rate')}
-                className="py-3 px-5 font-semibold cursor-pointer hover:text-white transition-colors"
+                className="py-3 px-5 font-semibold cursor-pointer hover:text-slate-900 transition-colors"
               >
                 <div className="flex items-center gap-1.5">
                   <span>Chargeback Risk</span>
@@ -148,7 +147,7 @@ export default function CreatorTable({
               <th className="py-3 px-5 font-semibold text-right">Status</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-zinc-800/60 text-zinc-300">
+          <tbody className="divide-y divide-slate-100 text-slate-700">
             {filteredCreators.map((creator) => {
               const isGrowthPositive = creator.growth_rate >= 0;
               const isHighRisk = creator.chargeback_rate > 1.5;
@@ -157,33 +156,33 @@ export default function CreatorTable({
                 <tr
                   key={creator.id}
                   onClick={() => onSelectCreator && onSelectCreator(creator)}
-                  className="hover:bg-zinc-800/40 transition-colors cursor-pointer group"
+                  className="hover:bg-slate-50 transition-colors cursor-pointer group"
                 >
                   {/* Creator Profile */}
                   <td className="py-3.5 px-5">
                     <div className="flex items-center gap-3">
-                      <div className="h-9 w-9 rounded-full bg-gradient-to-tr from-rose-500/30 to-indigo-500/30 border border-zinc-700/80 flex items-center justify-center text-white font-medium text-xs">
+                      <div className="h-9 w-9 rounded-full bg-indigo-50 border border-indigo-200 flex items-center justify-center text-indigo-700 font-bold text-xs">
                         {creator.name
                           .split(' ')
                           .map((n) => n[0])
                           .join('')}
                       </div>
                       <div>
-                        <div className="font-medium text-white flex items-center gap-1.5">
+                        <div className="font-bold text-slate-900 flex items-center gap-1.5">
                           <span>{creator.name}</span>
-                          <ExternalLink className="h-3 w-3 text-zinc-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+                          <ExternalLink className="h-3 w-3 text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity" />
                         </div>
-                        <div className="text-[11px] text-zinc-400 font-mono">{creator.username}</div>
+                        <div className="text-[11px] text-slate-500 font-mono">{creator.username}</div>
                       </div>
                     </div>
                   </td>
 
                   {/* Monthly Revenue */}
                   <td className="py-3.5 px-5">
-                    <div className="font-semibold text-white text-sm">
+                    <div className="font-extrabold text-slate-900 text-sm font-mono">
                       ${creator.monthly_revenue.toLocaleString()}
                     </div>
-                    <div className="text-[10px] text-zinc-400">
+                    <div className="text-[10px] text-slate-500 font-mono">
                       prev: ${creator.previous_monthly_revenue.toLocaleString()}
                     </div>
                   </td>
@@ -191,10 +190,10 @@ export default function CreatorTable({
                   {/* Growth Rate */}
                   <td className="py-3.5 px-5">
                     <div
-                      className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium ${
+                      className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold ${
                         isGrowthPositive
-                          ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
-                          : 'bg-rose-500/10 text-rose-400 border border-rose-500/20'
+                          ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                          : 'bg-rose-50 text-rose-700 border border-rose-200'
                       }`}
                     >
                       {isGrowthPositive ? (
@@ -211,40 +210,40 @@ export default function CreatorTable({
 
                   {/* Fans Count */}
                   <td className="py-3.5 px-5">
-                    <div className="font-medium text-zinc-200">
+                    <div className="font-bold text-slate-900 font-mono">
                       {creator.fans_count.toLocaleString()}
                     </div>
-                    <div className="text-[10px] text-zinc-400">subscribed</div>
+                    <div className="text-[10px] text-slate-500">subscribed</div>
                   </td>
 
                   {/* Primary Chatter */}
                   <td className="py-3.5 px-5">
-                    <div className="text-zinc-300 font-medium">{creator.primary_chatter || 'Unassigned'}</div>
-                    <div className="text-[10px] text-zinc-400">assigned lead</div>
+                    <div className="text-slate-800 font-semibold">{creator.primary_chatter || 'Unassigned'}</div>
+                    <div className="text-[10px] text-slate-500">assigned lead</div>
                   </td>
 
                   {/* Chargeback Rate */}
                   <td className="py-3.5 px-5">
                     <div className="flex items-center gap-1.5">
                       {isHighRisk ? (
-                        <ShieldAlert className="h-3.5 w-3.5 text-rose-400" />
+                        <ShieldAlert className="h-3.5 w-3.5 text-rose-600" />
                       ) : (
-                        <ShieldCheck className="h-3.5 w-3.5 text-emerald-400" />
+                        <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" />
                       )}
-                      <span className={`font-medium ${isHighRisk ? 'text-rose-400 font-bold' : 'text-zinc-300'}`}>
+                      <span className={`font-bold font-mono ${isHighRisk ? 'text-rose-600' : 'text-slate-800'}`}>
                         {creator.chargeback_rate}%
                       </span>
-                      <span className="text-[10px] text-zinc-400">({creator.chargebacks_count})</span>
+                      <span className="text-[10px] text-slate-500">({creator.chargebacks_count})</span>
                     </div>
                   </td>
 
                   {/* Status */}
                   <td className="py-3.5 px-5 text-right">
                     <span
-                      className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium capitalize ${
+                      className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold capitalize ${
                         creator.status === 'active'
-                          ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
-                          : 'bg-zinc-800 text-zinc-400 border border-zinc-700'
+                          ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                          : 'bg-slate-100 text-slate-600 border border-slate-200'
                       }`}
                     >
                       {creator.status}

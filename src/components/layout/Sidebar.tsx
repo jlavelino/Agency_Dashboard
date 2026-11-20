@@ -8,7 +8,6 @@ import {
   Link2,
   ShieldAlert,
   MessageSquare,
-  Sparkles,
   ExternalLink,
 } from 'lucide-react';
 
@@ -29,33 +28,41 @@ export default function Sidebar({ activeTab, setActiveTab, isLive }: SidebarProp
   ];
 
   return (
-    <aside className="w-64 bg-zinc-950 text-zinc-200 border-r border-zinc-800/80 flex flex-col shrink-0 min-h-screen">
+    <aside className="w-64 bg-white text-slate-700 border-r border-slate-200 flex flex-col shrink-0 min-h-screen">
       {/* Brand Header */}
-      <div className="h-16 px-6 border-b border-zinc-800/80 flex items-center justify-between shrink-0">
+      <div className="h-16 px-6 border-b border-slate-200 flex items-center justify-between shrink-0">
         <div className="flex items-center gap-3">
-          <div className="h-9 w-9 rounded-xl bg-gradient-to-tr from-rose-500 via-fuchsia-600 to-indigo-500 flex items-center justify-center shadow-lg shadow-rose-500/20 text-white font-bold text-lg">
+          <div className="h-9 w-9 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-black text-base shadow-sm">
             M
           </div>
           <div>
-            <h1 className="font-semibold text-white tracking-tight text-sm">Muse Management</h1>
-            <p className="text-[11px] text-zinc-400">Creator Agency OS</p>
+            <h1 className="font-bold text-slate-900 tracking-tight text-sm leading-none">Muse Management</h1>
+            <p className="text-[11px] text-slate-500 mt-1">Agency Command OS</p>
           </div>
         </div>
       </div>
 
       {/* Connection Status Pill */}
-      <div className="px-5 py-3">
-        <div className="flex items-center justify-between bg-zinc-900/90 border border-zinc-800 rounded-lg px-3 py-2 text-xs">
+      <div className="px-4 py-3">
+        <div className="flex items-center justify-between bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs">
           <div className="flex items-center gap-2">
-            <span className={`h-2 w-2 rounded-full ${isLive ? 'bg-emerald-500 shadow-sm shadow-emerald-500/50' : 'bg-amber-400 animate-pulse'}`} />
-            <span className="text-zinc-300 font-medium">{isLive ? 'Infloww Live' : 'Infloww Ready'}</span>
+            <span
+              className={`h-2.5 w-2.5 rounded-full ${
+                isLive ? 'bg-emerald-500 shadow-sm' : 'bg-indigo-600'
+              }`}
+            />
+            <span className="text-slate-800 font-semibold">
+              {isLive ? 'Infloww Live' : 'Infloww Connected'}
+            </span>
           </div>
-          <span className="text-[10px] text-zinc-400 bg-zinc-800 px-1.5 py-0.5 rounded">OID: 1223928</span>
+          <span className="text-[10px] text-slate-600 font-mono bg-slate-200/70 px-2 py-0.5 rounded-full">
+            OID: 1223928
+          </span>
         </div>
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 px-3 py-3 space-y-1">
+      <nav className="flex-1 px-3 py-2 space-y-1">
         {navItems.map((item) => {
           const Icon = item.icon;
           const isActive = activeTab === item.id;
@@ -63,41 +70,39 @@ export default function Sidebar({ activeTab, setActiveTab, isLive }: SidebarProp
             <button
               key={item.id}
               onClick={() => setActiveTab(item.id)}
-              className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium transition-all ${
+              className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition-all ${
                 isActive
-                  ? 'bg-rose-500/10 text-rose-400 border border-rose-500/20 shadow-sm'
-                  : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900/60'
+                  ? 'bg-indigo-50 text-indigo-700 border border-indigo-100 shadow-sm'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/70'
               }`}
             >
-              <Icon className={`h-4 w-4 ${isActive ? 'text-rose-400' : 'text-zinc-400'}`} />
+              <Icon className={`h-4 w-4 ${isActive ? 'text-indigo-600' : 'text-slate-400'}`} />
               <span>{item.label}</span>
             </button>
           );
         })}
       </nav>
 
-      {/* Agency Target Box */}
-      <div className="p-4 m-3 bg-gradient-to-br from-zinc-900 to-zinc-950 border border-zinc-800/90 rounded-xl">
-        <div className="flex items-center justify-between mb-2">
-          <span className="text-xs font-medium text-zinc-300 flex items-center gap-1.5">
-            <Sparkles className="h-3.5 w-3.5 text-rose-400" /> Agency Target
-          </span>
-          <span className="text-xs font-semibold text-rose-400">92%</span>
+      {/* Agency Goal Summary Box */}
+      <div className="p-4 m-3 bg-slate-50 border border-slate-200 rounded-xl">
+        <div className="flex items-center justify-between mb-1.5">
+          <span className="text-xs font-semibold text-slate-700">Monthly Target</span>
+          <span className="text-xs font-bold text-indigo-600 font-mono">92%</span>
         </div>
-        <div className="w-full bg-zinc-800 rounded-full h-1.5 overflow-hidden">
-          <div className="bg-gradient-to-r from-rose-500 to-indigo-500 h-1.5 rounded-full w-[92%]" />
+        <div className="w-full bg-slate-200 rounded-full h-2 overflow-hidden">
+          <div className="bg-indigo-600 h-2 rounded-full w-[92%]" />
         </div>
-        <p className="text-[11px] text-zinc-400 mt-2">$148.5K / $160K Monthly Goal</p>
+        <p className="text-[11px] text-slate-500 mt-2 font-mono font-medium">$148.5K / $160K Goal</p>
       </div>
 
       {/* Footer Info */}
-      <div className="p-4 border-t border-zinc-800/80 text-xs text-zinc-400 flex items-center justify-between">
-        <span>Infloww API v1</span>
+      <div className="p-4 border-t border-slate-200 text-xs text-slate-500 flex items-center justify-between">
+        <span className="font-mono text-[11px]">Infloww OpenAPI v1</span>
         <a
           href="https://infloww-openapi.stoplight.io/"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-1 hover:text-zinc-300 transition-colors"
+          className="flex items-center gap-1 hover:text-indigo-600 transition-colors text-[11px]"
         >
           <span>Docs</span>
           <ExternalLink className="h-3 w-3" />
