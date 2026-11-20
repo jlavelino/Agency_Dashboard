@@ -90,8 +90,6 @@ export default function Dashboard() {
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
           onExportCsv={() => exportAgencyAuditCsv(activeSummary, creators, marketingAssets, chargebacks)}
-          onToggleSidebar={() => setIsSidebarCollapsed((prev) => !prev)}
-          isSidebarCollapsed={isSidebarCollapsed}
         />
 
         <main className="flex-1 overflow-y-auto p-6 lg:p-8 space-y-6 max-w-7xl mx-auto w-full">

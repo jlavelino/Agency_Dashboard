@@ -43,45 +43,45 @@ export default function Sidebar({
         isCollapsed ? 'w-[72px]' : 'w-64'
       }`}
     >
-      {/* Brand Header & Collapse Toggle */}
-      <div className="h-16 px-4 border-b border-slate-200/90 flex items-center justify-between shrink-0">
-        <div className={`flex items-center gap-3 overflow-hidden ${isCollapsed ? 'justify-center w-full' : ''}`}>
-          <div className="h-9 w-9 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-black text-base shadow-sm shrink-0">
-            M
-          </div>
-          {!isCollapsed && (
-            <div className="min-w-0 transition-opacity duration-200">
-              <h1 className="font-bold text-slate-900 tracking-tight text-sm leading-none truncate">
-                Muse Management
-              </h1>
-              <p className="text-[11px] text-slate-500 mt-1 truncate">Agency Command OS</p>
-            </div>
-          )}
-        </div>
-
-        {!isCollapsed && (
-          <button
-            onClick={onToggleCollapse}
-            title="Collapse sidebar"
-            className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors"
-          >
-            <PanelLeftClose className="h-4 w-4" />
-          </button>
-        )}
-      </div>
-
-      {/* When collapsed, small expand button under header */}
-      {isCollapsed && (
-        <div className="flex justify-center py-2 border-b border-slate-100">
+      {/* Brand Header & Single Collapse Toggle */}
+      <div
+        className={`h-16 border-b border-slate-200/90 flex items-center shrink-0 ${
+          isCollapsed ? 'justify-center px-2' : 'justify-between px-4'
+        }`}
+      >
+        {isCollapsed ? (
           <button
             onClick={onToggleCollapse}
             title="Expand sidebar"
-            className="p-1.5 rounded-lg text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 transition-colors"
+            className="group relative h-9 w-9 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-black text-base shadow-sm hover:bg-indigo-700 transition-all cursor-pointer"
           >
-            <PanelLeftOpen className="h-4 w-4" />
+            <span className="group-hover:hidden">M</span>
+            <PanelLeftOpen className="hidden group-hover:block h-4 w-4" />
           </button>
-        </div>
-      )}
+        ) : (
+          <>
+            <div className="flex items-center gap-3 overflow-hidden">
+              <div className="h-9 w-9 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-black text-base shadow-sm shrink-0">
+                M
+              </div>
+              <div className="min-w-0 transition-opacity duration-200">
+                <h1 className="font-bold text-slate-900 tracking-tight text-sm leading-none truncate">
+                  Muse Management
+                </h1>
+                <p className="text-[11px] text-slate-500 mt-1 truncate">Agency Command OS</p>
+              </div>
+            </div>
+
+            <button
+              onClick={onToggleCollapse}
+              title="Collapse sidebar"
+              className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors shrink-0"
+            >
+              <PanelLeftClose className="h-4 w-4" />
+            </button>
+          </>
+        )}
+      </div>
 
       {/* Connection Status Pill */}
       <div className="px-3 py-3">
