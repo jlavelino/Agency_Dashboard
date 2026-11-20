@@ -10,6 +10,7 @@ import MarketingPanel from '@/components/dashboard/MarketingPanel';
 import ChattersPanel from '@/components/dashboard/ChattersPanel';
 import ChargebackMonitor from '@/components/dashboard/ChargebackMonitor';
 import CreatorDetailDrawer from '@/components/dashboard/CreatorDetailDrawer';
+import LoadingScreen from '@/components/layout/LoadingScreen';
 import { Creator, MarketingAsset, ChargebackRecord, AgencyMetricsSummary } from '@/types/infloww';
 import { mockAgencySummary, mockCreators, mockMarketingAssets, mockChargebacks } from '@/lib/mockData';
 import { getScaledSummary, getScaledCreators } from '@/lib/timeframeUtils';
@@ -72,6 +73,7 @@ export default function Dashboard() {
 
   return (
     <div className="flex h-screen bg-slate-100 text-slate-900 overflow-hidden font-sans">
+      <LoadingScreen isLoading={isLoading} />
       {/* Sidebar Navigation */}
       <Sidebar
         activeTab={activeTab}

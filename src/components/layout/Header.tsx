@@ -264,11 +264,10 @@ export default function Header({
               <button
                 key={tf}
                 onClick={() => setTimeframe(tf)}
-                className={`px-3 py-1 rounded-lg font-semibold text-[11px] transition-all whitespace-nowrap cursor-pointer ${
-                  isSelected
+                className={`px-3 py-1 rounded-lg font-semibold text-[11px] transition-all whitespace-nowrap cursor-pointer ${isSelected
                     ? 'bg-white text-indigo-700 shadow-sm'
                     : 'text-slate-600 hover:text-slate-900'
-                }`}
+                  }`}
               >
                 {timeframeLabels[tf] || tf}
               </button>
@@ -310,11 +309,10 @@ export default function Header({
           <button
             onClick={handleBellClick}
             title="Notifications"
-            className={`relative p-2 border rounded-xl transition-all shrink-0 shadow-sm ${
-              notifOpen
+            className={`relative p-2 border rounded-xl transition-all shrink-0 shadow-sm ${notifOpen
                 ? 'bg-indigo-50 border-indigo-300 text-indigo-700'
                 : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 border-slate-200'
-            }`}
+              }`}
           >
             <Bell className="h-3.5 w-3.5" />
             {unreadCount > 0 && (
