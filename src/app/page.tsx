@@ -23,6 +23,7 @@ export default function Dashboard() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isLive, setIsLive] = useState<boolean>(false);
   const [selectedCreator, setSelectedCreator] = useState<Creator | null>(null);
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState<boolean>(false);
 
   const [summary, setSummary] = useState<AgencyMetricsSummary>(mockAgencySummary);
   const [creators, setCreators] = useState<Creator[]>(mockCreators);
@@ -71,7 +72,13 @@ export default function Dashboard() {
   return (
     <div className="flex h-screen bg-slate-100 text-slate-900 overflow-hidden font-sans">
       {/* Sidebar Navigation */}
-      <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} isLive={isLive} />
+      <Sidebar
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+        isLive={isLive}
+        isCollapsed={isSidebarCollapsed}
+        onToggleCollapse={() => setIsSidebarCollapsed((prev) => !prev)}
+      />
 
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col min-w-0 h-screen overflow-hidden">
@@ -83,6 +90,8 @@ export default function Dashboard() {
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
           onExportCsv={() => exportAgencyAuditCsv(activeSummary, creators, marketingAssets, chargebacks)}
+          onToggleSidebar={() => setIsSidebarCollapsed((prev) => !prev)}
+          isSidebarCollapsed={isSidebarCollapsed}
         />
 
         <main className="flex-1 overflow-y-auto p-6 lg:p-8 space-y-6 max-w-7xl mx-auto w-full">

@@ -8,6 +8,8 @@ import {
   TrendingUp,
   Download,
   Check,
+  PanelLeftClose,
+  PanelLeftOpen,
 } from 'lucide-react';
 
 interface HeaderProps {
@@ -18,6 +20,8 @@ interface HeaderProps {
   searchQuery: string;
   setSearchQuery: (q: string) => void;
   onExportCsv?: () => void;
+  onToggleSidebar?: () => void;
+  isSidebarCollapsed?: boolean;
 }
 
 export default function Header({
@@ -28,6 +32,8 @@ export default function Header({
   searchQuery,
   setSearchQuery,
   onExportCsv,
+  onToggleSidebar,
+  isSidebarCollapsed,
 }: HeaderProps) {
   const [isExported, setIsExported] = useState(false);
 
@@ -48,9 +54,22 @@ export default function Header({
 
   return (
     <header className="h-16 shrink-0 bg-white border-b border-slate-200/90 px-4 sm:px-6 flex items-center justify-between z-20 gap-3 shadow-xs">
-      {/* Left: Search Bar */}
-      <div className="flex items-center gap-2 flex-1 max-w-xs min-w-0">
-        <div className="relative w-full">
+      {/* Left: Sidebar Toggle & Search Bar */}
+      <div className="flex items-center gap-2 flex-1 max-w-sm min-w-0">
+        {onToggleSidebar && (
+          <button
+            onClick={onToggleSidebar}
+            title={isSidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+            className="p-2 text-slate-500 hover:text-indigo-600 hover:bg-slate-100 rounded-xl transition-colors shrink-0"
+          >
+            {isSidebarCollapsed ? (
+              <PanelLeftOpen className="h-4 w-4" />
+            ) : (
+              <PanelLeftClose className="h-4 w-4" />
+            )}
+          </button>
+        )}
+        <div className="relative w-full max-w-xs">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-slate-400 pointer-events-none" />
           <input
             type="text"
@@ -76,11 +95,10 @@ export default function Header({
             <button
               key={tf}
               onClick={() => setTimeframe(tf)}
-              className={`px-3 py-1 rounded-lg font-semibold text-[11px] transition-all whitespace-nowrap ${
-                timeframe === tf
-                  ? 'bg-white text-indigo-700 shadow-sm'
-                  : 'text-slate-600 hover:text-slate-900'
-              }`}
+              className={`px-3 py-1 rounded-lg font-semibold text-[11px] transition-all whitespace-nowrap ${timeframe === tf
+                ? 'bg-white text-indigo-700 shadow-sm'
+                : 'text-slate-600 hover:text-slate-900'
+                }`}
             >
               {timeframeLabels[tf] || tf}
             </button>
