@@ -2,8 +2,13 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Muse Management — OnlyFans Agency Intelligence Dashboard',
-  description: 'Executive dashboard powered by the Infloww API for OnlyFans creator management, chatter operations, and marketing analytics.',
+  title: 'Muse Management – Agency Intelligence Dashboard',
+  description:
+    'Executive dashboard powered by the Infloww API for OnlyFans creator management, chatter operations, and marketing analytics.',
+  icons: {
+    icon: '/favicon.svg',
+    shortcut: '/favicon.svg',
+  },
 };
 
 export default function RootLayout({
