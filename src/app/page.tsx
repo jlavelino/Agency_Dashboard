@@ -87,35 +87,35 @@ export default function Dashboard() {
 
         <main className="flex-1 p-6 lg:p-8 space-y-6 max-w-7xl mx-auto w-full">
           {/* Executive Overview Header Banner */}
-          <div className="relative overflow-hidden bg-white border border-slate-200/90 rounded-2xl p-6 sm:p-7 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-sm ring-1 ring-slate-900/5">
+          <div className="relative overflow-hidden bg-white border border-slate-200/90 rounded-2xl p-5 sm:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-sm ring-1 ring-slate-900/5">
             <div>
-              <div className="flex items-center gap-2 mb-2">
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
-                  <CheckCircle2 className="h-3.5 w-3.5" /> Infloww API Active
+              <div className="flex items-center gap-2 mb-1.5">
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                  <CheckCircle2 className="h-3 w-3" /> Infloww API Active
                 </span>
-                <span className="text-xs text-indigo-700 font-mono font-medium">Agency OID: 1223928978604066</span>
+                <span className="text-[11px] text-indigo-700 font-mono font-medium">Agency OID: 1223928978604066</span>
               </div>
-              <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">
+              <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900">
                 Agency Operations Command
               </h1>
-              <p className="text-slate-600 text-xs sm:text-sm mt-1 max-w-xl">
+              <p className="text-slate-500 text-xs mt-1 max-w-xl">
                 Managing revenue velocity, chatter shift efficiency, subscriber acquisition, and risk across 8 managed creators.
               </p>
             </div>
 
-            <div className="flex flex-wrap items-center gap-3">
+            <div className="flex flex-wrap items-center gap-2.5">
               <button
                 onClick={() => setActiveTab('creators')}
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shadow-sm transition-all"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold shadow-xs transition-all"
               >
                 <span>Creator Roster</span>
-                <ArrowRight className="h-3.5 w-3.5" />
+                <ArrowRight className="h-3 w-3" />
               </button>
               <button
                 onClick={() => setActiveTab('chatters')}
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold border border-slate-200 transition-all"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold border border-slate-200 transition-all"
               >
-                <Zap className="h-3.5 w-3.5 text-indigo-600" />
+                <Zap className="h-3 w-3 text-indigo-600" />
                 <span>Chatter Sales</span>
               </button>
             </div>

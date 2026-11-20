@@ -50,7 +50,7 @@ export default function RevenueChart({ timeframe = '30D' }: RevenueChartProps) {
           <div>
             <div className="flex items-center gap-2">
               <TrendingUp className="h-4 w-4 text-indigo-600" />
-              <h2 className="text-base font-bold text-slate-900 tracking-tight">
+              <h2 className="text-sm font-bold text-slate-900 tracking-tight">
                 Agency Revenue Velocity (USD)
               </h2>
             </div>
@@ -187,7 +187,7 @@ export default function RevenueChart({ timeframe = '30D' }: RevenueChartProps) {
         <div>
           <div className="flex items-center gap-2 mb-1">
             <PieIcon className="h-4 w-4 text-indigo-600" />
-            <h2 className="text-base font-bold text-slate-900 tracking-tight">Portfolio Concentration</h2>
+            <h2 className="text-sm font-bold text-slate-900 tracking-tight">Portfolio Concentration</h2>
           </div>
           <p className="text-xs text-slate-500">Share of monthly gross per model</p>
         </div>
