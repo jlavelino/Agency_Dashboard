@@ -47,9 +47,9 @@ export default function Header({
   };
 
   return (
-    <header className="h-16 shrink-0 bg-white border-b border-slate-200 px-6 flex items-center justify-between sticky top-0 z-30 gap-4 shadow-sm">
+    <header className="h-16 shrink-0 bg-white border-b border-slate-200/90 px-4 sm:px-6 flex items-center justify-between z-20 gap-3 shadow-xs">
       {/* Left: Search Bar */}
-      <div className="flex items-center gap-3 w-56 sm:w-64 shrink-0">
+      <div className="flex items-center gap-2 flex-1 max-w-xs min-w-0">
         <div className="relative w-full">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-slate-400 pointer-events-none" />
           <input
@@ -126,11 +126,11 @@ export default function Header({
         </button>
 
         {/* User / Director Profile */}
-        <div className="flex items-center gap-2 pl-2 sm:pl-3 border-l border-slate-200 shrink-0">
-          <div className="h-8 w-8 rounded-full bg-indigo-600 flex items-center justify-center text-white text-xs font-bold shadow-sm shrink-0">
+        <div className="flex items-center gap-2.5 pl-2 sm:pl-3 border-l border-slate-200 shrink-0">
+          <div className="h-8 w-8 rounded-full bg-indigo-600 flex items-center justify-center text-white text-xs font-bold shadow-xs shrink-0">
             AG
           </div>
-          <div className="hidden md:flex flex-col justify-center text-left leading-tight shrink-0">
+          <div className="hidden sm:flex flex-col justify-center text-left leading-tight shrink-0 pr-1">
             <span className="text-xs font-semibold text-slate-900 whitespace-nowrap">Agency Director</span>
             <span className="text-[10px] text-slate-500 font-mono whitespace-nowrap">OID: 1223928</span>
           </div>

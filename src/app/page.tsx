@@ -74,7 +74,7 @@ export default function Dashboard() {
       <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} isLive={isLive} />
 
       {/* Main Content Area */}
-      <div className="flex-1 flex flex-col min-w-0 overflow-y-auto">
+      <div className="flex-1 flex flex-col min-w-0 h-screen overflow-hidden">
         <Header
           timeframe={timeframe}
           setTimeframe={setTimeframe}
@@ -85,7 +85,7 @@ export default function Dashboard() {
           onExportCsv={() => exportAgencyAuditCsv(activeSummary, creators, marketingAssets, chargebacks)}
         />
 
-        <main className="flex-1 p-6 lg:p-8 space-y-6 max-w-7xl mx-auto w-full">
+        <main className="flex-1 overflow-y-auto p-6 lg:p-8 space-y-6 max-w-7xl mx-auto w-full">
           {/* Executive Overview Header Banner */}
           <div className="relative overflow-hidden bg-white border border-slate-200/90 rounded-2xl p-5 sm:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-sm ring-1 ring-slate-900/5">
             <div>
